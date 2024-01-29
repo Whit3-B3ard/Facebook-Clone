@@ -1,15 +1,15 @@
 import jwt from "jsonwebtoken";
 
 const auth = (req, res, next) => {
-  const token = req.headers.authorisation || req.headers.Authorisation;
+  const token = req.headers.authorization || req.headers.Authorization;
 
   try {
-    const decodedToken = jwt.verify(token, process.env.SECRET_TOKEN_KEY);
-    req.user = decodedToken;
-    console.log(decodedToken);
+    const decoded = jwt.verify(token, process.env.SECRET_TOKEN_KEY);
+    req.user = decoded;
+
     next();
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 };
 
