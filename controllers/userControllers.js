@@ -1,4 +1,4 @@
-import User from "../models/userSchem.jsx";
+import User from "../models/userSchema.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
@@ -65,5 +65,15 @@ export const findLoggedUser = async (req, res) => {
     res.send({ success: true, user });
   } catch (error) {
     console.error({ success: false, error: error.message });
+  }
+};
+
+export const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find();
+    res.send({ success: true, users });
+  } catch (error) {
+    console.error("Error fetching the users", error.message);
+    res.send({ success: false, error: error.message });
   }
 };
