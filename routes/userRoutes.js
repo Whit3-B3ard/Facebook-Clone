@@ -4,7 +4,7 @@ import {
   signInUser,
   findLoggedUser,
   getAllUsers,
-  editUser,
+  updateUserProfilePicture,
 } from "../controllers/userControllers.js";
 import auth from "../middleware/userAuth.js";
 import upload from "../middleware/middlewareLocalStorage.js";
@@ -23,7 +23,11 @@ router.get("/loggeduser", auth, findLoggedUser);
 
 router.get("/fetchusers", getAllUsers);
 
-router.put("/edituser/:userId", upload.single("profilePic"), editUser);
+router.put(
+  "/edituser/:userId",
+  upload.single("profilePic"),
+  updateUserProfilePicture
+);
 
 //upload.single("profilePic") ==>> middleware
 

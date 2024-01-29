@@ -79,30 +79,24 @@ export const getAllUsers = async (req, res) => {
   }
 };
 
-export const editUser = async (req, res) => {
+export const updateUserProfilePicture = async (req, res) => {
   const { userId } = req.params;
+  const { filename } = req.file;
 
   try {
-    let imagePath = req.file.path;
-    const updatedUser = await User.findByIdAndUpdate(
+    const user = await User.findByIdAndUpdate(
       userId,
-      { $set: { image: imagePath } },
+      { image: filename },
       { new: true }
     );
-
-    if (!updatedUser) {
-      return res.send({ success: false, message: "User not found" });
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
     }
-
-    console.log("Profile picture added successfully:", updatedTodo);
-    res.send({
-      success: true,
-      user: updatedUser,
-      message: "Updated successfully",
-    });
-    console.log("Updated user==>", updatedUser);
+    res.json({ success: true, user });
   } catch (error) {
-    console.error("Error adding the image", error.message);
-    res.send({ success: false, error: error.message });
+    console.error("Error updating profile picture:", error.message);
+    res.status(500).json({ success: false, error: error.message });
   }
 };
