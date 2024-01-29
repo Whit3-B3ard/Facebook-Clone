@@ -1,6 +1,5 @@
 import { dbName, port, uri } from "./lib/env-vars.js";
 import express from "express";
-//import routes from "./routes/index.js";
 import connectDB from "./lib/mongodb.js";
 import "dotenv/config";
 
