@@ -41,7 +41,7 @@ export const signInUser = async (req, res) => {
       });
     }
 
-    const token = jwt.sign({ userId: user._id }, process.env.SECRET_ENV_KEY, {
+    const token = jwt.sign({ userId: user._id }, process.env.SECRET_TOKEN_KEY, {
       expiresIn: "1d",
     });
 
@@ -52,6 +52,7 @@ export const signInUser = async (req, res) => {
     });
 
     console.log("User logged in==>", user);
+    console.log("Users token==>", token);
   } catch (error) {
     console.error("Error signin in", error.message);
     res.send({ success: false, error: error.message });
