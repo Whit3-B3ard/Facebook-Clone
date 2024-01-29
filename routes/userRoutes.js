@@ -5,7 +5,7 @@ import {
   findLoggedUser,
   getAllUsers,
 } from "../controllers/userControllers.js";
-import auth from "./middleware/userAuth.js";
+import auth from "../middleware/userAuth.js";
 
 const router = express.Router();
 
