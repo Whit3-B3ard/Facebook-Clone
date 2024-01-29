@@ -83,9 +83,10 @@ export const editUser = async (req, res) => {
   const { userId } = req.params;
 
   try {
+    let imagePath = req.file.path;
     const updatedUser = await User.findByIdAndUpdate(
       userId,
-      { $set: req.body },
+      { $set: { image: imagePath } },
       { new: true }
     );
 
@@ -99,6 +100,7 @@ export const editUser = async (req, res) => {
       user: updatedUser,
       message: "Updated successfully",
     });
+    console.log("Updated user==>", updatedUser);
   } catch (error) {
     console.error("Error adding the image", error.message);
     res.send({ success: false, error: error.message });
