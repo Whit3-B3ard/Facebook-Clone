@@ -35,7 +35,7 @@ export const signInUser = async (req, res) => {
     );
 
     if (!matchPassword || !user) {
-      return req.send({
+      return res.send({
         success: false,
         message: "Wrong e-mail or phone or password",
       });
@@ -75,6 +75,32 @@ export const getAllUsers = async (req, res) => {
     res.send({ success: true, users });
   } catch (error) {
     console.error("Error fetching the users", error.message);
+    res.send({ success: false, error: error.message });
+  }
+};
+
+export const editUser = async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { $set: req.body },
+      { new: true }
+    );
+
+    if (!updatedUser) {
+      return res.send({ success: false, message: "User not found" });
+    }
+
+    console.log("Profile picture added successfully:", updatedTodo);
+    res.send({
+      success: true,
+      user: updatedUser,
+      message: "Updated successfully",
+    });
+  } catch (error) {
+    console.error("Error adding the image", error.message);
     res.send({ success: false, error: error.message });
   }
 };
