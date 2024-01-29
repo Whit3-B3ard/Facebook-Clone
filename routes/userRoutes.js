@@ -23,7 +23,7 @@ router.get("/loggeduser", auth, findLoggedUser);
 
 router.get("/fetchusers", getAllUsers);
 
-router.put(
+router.post(
   "/edituser/:userId",
   upload.single("profilePic"),
   updateUserProfilePicture
