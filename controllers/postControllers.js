@@ -8,12 +8,14 @@ import Post from "../models/postSchema.js";
     formdata.append("postImage", image); */
 
 export const createPost = async (req, res) => {
+  if (req.file) req.body.image = req.file.filename;
+  console.log(req.body)
   try {
-    if (req.file) req.body.image = req.file;
+   
 
     const newPost = new Post(req.body);
     await newPost.save();
-    await newPost.populate("author");
+    // await newPost.populate("author");
     res.json(newPost);
     console.log("Post created successfully:", newPost);
   } catch (error) {
