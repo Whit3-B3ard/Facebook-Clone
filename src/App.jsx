@@ -1,12 +1,19 @@
 import React from 'react';
-import Header from './components/Header';
 import Feed from './components/Feed';
-import Navigation from './components/Navigation';
+import { useUserContext } from './context/User-context';
+import { useNavigate } from 'react-router-dom';
 function App() {
+  const { user } = useUserContext();
+  const navigate = useNavigate();
+  React.useEffect(() => {
+    if (!user) {
+      navigate('/signin');
+    }
+  }, [user, navigate]);
+
   return (
     <div >
-      
-      <Feed />
+      {user && <Feed />}
     </div>
   );
 
