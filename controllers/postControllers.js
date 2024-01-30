@@ -35,7 +35,8 @@ export const getAllPosts = async (req, res) => {
 
 export const deletePost = async (req, res) => {
   const { postId } = req.params;
-
+  const findPost = await Post.findById(postId);
+  fs.unlinkSync(findPost.image);
   await Post.findByIdAndDelete(postId);
   res.json({ message: "Post deleted successfully!" });
 };
