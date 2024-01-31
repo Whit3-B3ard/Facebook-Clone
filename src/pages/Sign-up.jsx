@@ -1,10 +1,11 @@
+import { Link } from "react-router-dom";
 import { useUserContext } from "../context/User-context";
 
 const SignUp = () => {
   const { handleRegistration } = useUserContext();
   return (
     <div className=" w-full h-screen flex  justify-center items-center  gap-32 bg-gray-100">
-    <div className="w-1/5 h-96 flex flex-col justify-center">
+      <div className="w-1/5 h-96 flex flex-col justify-center">
         <img
           src="https://static.xx.fbcdn.net/rsrc.php/y1/r/4lCu2zih0ca.svg"
           alt="Facebook"
@@ -14,7 +15,7 @@ const SignUp = () => {
             Connect with friends and the world around on Facebook.
           </p>
         </div>
-    </div>
+      </div>
       <form
         onSubmit={handleRegistration}
         className="max-w-md  bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4  "
@@ -215,16 +216,20 @@ const SignUp = () => {
           </div>
         </div>
 
-        <div className="flex justify-center items-center  ">
+        <div className="flex  flex-col justify-center items-center gap-6 ">
           <button
             className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-1/2"
             type="submit"
           >
             Sign Up
           </button>
+          <span className="text-gray-600">
+            Already have an Account?{" "}
+            <button className="text-blue-500"> Sign in</button>
+          </span>
         </div>
       </form>
-      </div>
+    </div>
   );
 };
 

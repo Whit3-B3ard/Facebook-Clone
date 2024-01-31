@@ -10,24 +10,23 @@ const UserProvider = ({ children }) => {
   const [register, setRegister] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
+  const fetchUser = async () => {
     const token = localStorage.getItem("token");
     console.log("token", token);
-
-    const fetchUser = async () => {
-      if (token) {
-        try {
-          const response = await axios.get(baseURL + "/users/loggeduser");
-          setUser(response.data.user);
-          console.log("fetchedUser =====>", response.data);
-        } catch (error) {
-          console.log(error);
-        }
-      } else {
-        navigate("/");
+    if (token) {
+      try {
+        const response = await axios.get(baseURL + "/users/loggeduser");
+        setUser(response.data.user);
+        console.log("fetchedUser =====>", response.data.user.firstname);
+      } catch (error) {
+        console.log(error);
       }
-    };
+    } else {
+      navigate("/");
+    }
+  };
 
+  useEffect(() => {
     fetchUser();
   }, []);
 
@@ -64,8 +63,7 @@ const UserProvider = ({ children }) => {
       console.log("set token", user);
       e.target.reset();
       setUser(user);
-      navigate("/home");
-
+      window.location.replace("/home")
       console.log(user);
     } catch (error) {
       console.log(error);

@@ -64,6 +64,7 @@ export const findLoggedUser = async (req, res) => {
   try {
     const userId = req.user.userId;
     const user = await User.findOne({ _id: userId });
+    console.log("fetched user", user)
     res.send({ success: true, user });
   } catch (error) {
     console.error({ success: false, error: error.message });
